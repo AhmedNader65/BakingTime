@@ -1,0 +1,35 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:background="@android:color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!--<fragment-->
+        <!--android:id="@+id/master_list_fragment"-->
+        <!--tools:layout="@layout/fragment_step_list"-->
+        <!--android:name="mrerror.bakingtime.fragments.StepFragment"-->
+        <!--android:layout_width="400dp"-->
+        <!--android:layout_height="match_parent" />-->
+
+    <FrameLayout
+        android:id="@+id/left_fragment"
+        android:layout_width="400dp"
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_step_list" />
+    <View
+        style="@style/Divider"/>
+    <TextView
+        android:id="@+id/not_selected"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select a step to show"
+        android:gravity="center"
+        android:layout_gravity="top"
+        />
+    <FrameLayout
+        android:id="@+id/step_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

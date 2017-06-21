@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+<android.support.constraint.ConstraintLayout
+    android:background="@drawable/back2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/ingredient_card"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        card_view:cardBackgroundColor="#817ba237">
+
+    <TextView
+        android:id="@+id/ingredientsTV"
+        android:layout_width="match_parent"
+        android:paddingTop="@dimen/card_recipe_ver_padding"
+        android:paddingBottom="@dimen/card_recipe_ver_padding"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:textSize="28sp"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:layout_marginRight="8dp"
+        android:text="Ingredients" />
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/shape1"
+            android:layout_gravity="center|right"
+            android:layout_marginRight="10dp"
+
+            />
+    </android.support.v7.widget.CardView>
+<android.support.v7.widget.RecyclerView
+    android:id="@+id/list"
+    android:name="mrerror.bakingtime.fragments.StepFragment"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    app:layoutManager="LinearLayoutManager"
+    tools:context="mrerror.bakingtime.fragments.StepFragment"
+    tools:listitem="@layout/fragment_step"
+    app:layout_constraintTop_toBottomOf="@+id/ingredient_card"
+    android:layout_marginTop="8dp"
+    android:layout_marginLeft="8dp"
+    app:layout_constraintLeft_toLeftOf="parent"
+    android:layout_marginRight="8dp"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    android:layout_marginBottom="8dp"
+    app:layout_constraintHorizontal_bias="1.0"
+    app:layout_constraintVertical_bias="0.0"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp" />
+</android.support.constraint.ConstraintLayout>
+
+</layout>
