@@ -84,25 +84,17 @@ public class DetailsFragment extends Fragment implements ExoPlayer.EventListener
         if (savedInstanceState != null) {
             if (savedInstanceState.containsKey("seek")) {
                 savedPosition = savedInstanceState.getLong("seek");
+            }else{
+                savedPosition = 0;
             }
+        }else {
+            savedPosition = 0;
         }
         View view = binding.getRoot();
         binding.playerView.requestFocus();
         binding.playerView.setControllerHideOnTouch(false);
         Log.e("hi", mStep.getShortDescription());
-        if (mStep.getVideoURL() != null && mStep.getVideoURL().length() > 0) {
-            HttpProxyCacheServer proxy = App.getProxy(getActivity());
-            String proxyUrl = proxy.getProxyUrl(mStep.getVideoURL());
-            initializePlayer(Uri.parse(proxyUrl));
-        } else {
-            try {
-                binding.videoFrame.setVisibility(View.GONE);
-                binding.thumbnailImg.setVisibility(View.VISIBLE);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            setImage();
-        }
+        setupExoPlayer();
         if (binding.landFrame != null) {
             // Landscape mode
             // Hide Actionbar
@@ -134,6 +126,22 @@ public class DetailsFragment extends Fragment implements ExoPlayer.EventListener
         });
 
         return view;
+    }
+
+    private void setupExoPlayer() {
+        if (mStep.getVideoURL() != null && mStep.getVideoURL().length() > 0) {
+            HttpProxyCacheServer proxy = App.getProxy(getActivity());
+            String proxyUrl = proxy.getProxyUrl(mStep.getVideoURL());
+            initializePlayer(Uri.parse(proxyUrl));
+        } else {
+            try {
+                binding.videoFrame.setVisibility(View.GONE);
+                binding.thumbnailImg.setVisibility(View.VISIBLE);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            setImage();
+        }
     }
 
     private void setNextAndPref() {
@@ -197,18 +205,17 @@ public class DetailsFragment extends Fragment implements ExoPlayer.EventListener
 
     @Override
     public void onPause() {
+        savedPosition = mExoPlayer.getCurrentPosition();
         super.onPause();
         if (mExoPlayer != null) {
-            mExoPlayer.setPlayWhenReady(false);
+            releasePlayer();
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (mExoPlayer != null) {
-            mExoPlayer.setPlayWhenReady(true);
-        }
+        setupExoPlayer();
     }
 
     @Override
@@ -298,7 +305,7 @@ public class DetailsFragment extends Fragment implements ExoPlayer.EventListener
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putLong("seek", mExoPlayer.getCurrentPosition());
+        outState.putLong("seek", savedPosition);
     }
 
     /**
